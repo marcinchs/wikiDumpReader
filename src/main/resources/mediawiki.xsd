@@ -1,0 +1,79 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.mediawiki.org/xml/export-0.11/" xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:tn="http://www.mediawiki.org/xml/export-0.11/" >
+
+    <xs:element name="mediawiki">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="siteinfo" type="tn:SiteInfoType" minOccurs="0"/>
+                <xs:element name="page" type="tn:PageType" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PageType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="title" minOccurs="0"/>
+            <xs:element type="xs:string" name="ns" minOccurs="0"/>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+            <xs:element name="revision" type="tn:RevisionType" minOccurs="0">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="SiteInfoType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="sitename" minOccurs="0"/>
+            <xs:element type="xs:string" name="dbname" minOccurs="0"/>
+            <xs:element type="xs:anyURI" name="base" minOccurs="0"/>
+            <xs:element type="xs:string" name="generator" minOccurs="0"/>
+            <xs:element type="xs:string" name="case" minOccurs="0"/>
+            <xs:element name="namespaces" type="tn:NamespacesType" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="RevisionType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+            <xs:element type="xs:string" name="parentid" minOccurs="0"/>
+            <xs:element type="xs:string" name="timestamp" minOccurs="0"/>
+            <xs:element name="contributor" type="tn:ContributorType" minOccurs="0"/>
+            <xs:element type="xs:string" name="minor" minOccurs="0"/>
+            <xs:element type="xs:string" name="origin" minOccurs="0"/>
+            <xs:element type="xs:string" name="model" minOccurs="0"/>
+            <xs:element type="xs:string" name="format" minOccurs="0"/>
+            <xs:element name="text" type="tn:TextType" minOccurs="0"/>
+            <xs:element type="xs:string" name="sha1" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ContributorType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="username" minOccurs="0"/>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TextType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="bytes"/>
+                <xs:attribute type="xs:string" name="sha1"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="NamespacesType">
+        <xs:sequence>
+            <xs:element name="namespace" type="tn:NamespaceType" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="NamespaceType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="key"/>
+                <xs:attribute type="xs:string" name="case"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+</xs:schema>
